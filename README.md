@@ -115,18 +115,29 @@ O objetivo do jogador é:
 
 ## 11. 🗂️ Estrutura do Projeto
 
-*IF-Heads-Cup/
-*│
-*├── main.py
-*├── player.py
-*├── ball.py
-*├── enemy.py
-*├── game.py
-*├── settings.py
-*├── assets/
-*│   ├── imagens/
-*│   └── sons/
-*└── README.md
+IF-Heads-Cup/
+
+│
+
+├── main.py
+
+├── player.py
+
+├── ball.py
+
+├── enemy.py
+
+├── game.py
+
+├── settings.py
+
+├── assets/
+
+│   ├── imagens/
+
+│   └── sons/
+
+└── README.md
 
 ## 12. ⚙️ Funcionalidades Mínimas
 
