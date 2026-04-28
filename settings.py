@@ -1,0 +1,16 @@
+# LARGURA DA TELA E OS FRAMES POR SEGUNDO:
+SCREEN_W= 1000
+SCREEN_H= 600
+FPS= 60 
+
+
+# FISICA DO JOGNO
+GRAVITY = 0.6
+PLAYER_SPEED = 5
+PLAYER_JUMP = -15
+BALL_RESTITUTION = 0.7
+
+# CORES
+WHITE  = (255, 255, 255)  # dermacação do campo e as do gol
+GREEN  = ( 34, 139,  34)  # gramado
+BLACK  = (  0,   0,   0)  # boorda
