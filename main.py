@@ -1,21 +1,13 @@
 import pygame
 from settings import *
+from game import Game
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
-pygame.display.set_caption("Futebol de Cabeção")
-clock = pygame.time.Clock()
+pygame.display.set_caption("IFut Heads")
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-
-    screen.fill(BLACK)
-    pygame.display.flip()
-    clock.tick(FPS)
+game = Game()
+game.events(screen)
 
 
 pygame.quit()
