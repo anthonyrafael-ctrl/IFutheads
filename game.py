@@ -37,11 +37,13 @@ class Game:
 
             self.ball.apply_gravity()
             self.ball.mover()
+            self.colisao()
 
             screen.blit(self.background, (0,0))
             self.player.desenhar(screen)
             self.enemy.desenhar(screen)
             self.ball.desenhar(screen)
+
 
             pygame.display.update()
 
@@ -53,3 +55,23 @@ class Game:
         #limpar a tela pintando tudo de preto
         self.screen.fill(BLACK)
         pygame.display.flip()
+
+    def colisao(self):
+
+        if self.player.rect.colliderect(self.ball.rect):
+            if self.player.rect.centerx < self.ball.rect.centerx:
+                self.ball.vel_x = 7
+
+            else:
+                self.ball.vel_x = -7
+
+            self.ball.vel_y = -5
+
+        if self.enemy.rect.colliderect(self.ball.rect):
+            if self.enemy.rect.centerx < self.ball.rect.centerx:
+                self.ball.vel_x = 7
+
+            else:
+                self.ball.vel_x = -7
+
+            self.ball.vel_y = -5

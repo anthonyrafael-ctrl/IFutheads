@@ -15,9 +15,18 @@ class Bola:
         self.rect.x += self.vel_x
         self.rect.y += self.vel_y
 
+        if self.rect.x < 0:
+            self.rect.x = 0
+        
+        if self.rect.x > SCREEN_W - self.rect.width:
+            self.rect.x = SCREEN_W - self.rect.width
+
         if self.rect.y >= SCREEN_H - 30:
             self.rect.y = SCREEN_H -30
             self.vel_y *= -0.7 
 
     def desenhar(self,screen):
         pygame.draw.ellipse(screen, (0,0,0), self.rect)
+
+
+    

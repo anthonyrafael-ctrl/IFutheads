@@ -12,6 +12,12 @@ class Enemy:
             self.rect.x -= PLAYER_SPEED
         elif ball.rect.x > self.rect.x:
             self.rect.x += PLAYER_SPEED
+
+        if self.rect.x < 0:
+            self.rect.x = 0
+        
+        if self.rect.x > SCREEN_W - self.rect.width:
+            self.rect.x = SCREEN_W - self.rect.width
     
     def apply_gravity(self):
         self.vel_y += GRAVITY
