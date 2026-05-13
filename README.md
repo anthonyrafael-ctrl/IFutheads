@@ -166,3 +166,5 @@ Para a primeira versão, o jogo deve ter:
 * Sistema de menu completo
 
 ## 14. 🖼️ Storyboard
+
+* As imagens do Storyboard estão anexadas denro do repositório
