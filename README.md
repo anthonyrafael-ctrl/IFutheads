@@ -164,3 +164,5 @@ Para a primeira versão, o jogo deve ter:
 * Efeitos visuais e sons
 * Power-ups (velocidade, pulo alto, chute forte)
 * Sistema de menu completo
+
+## 14. 🖼️ Storyboard
