@@ -168,3 +168,67 @@ Para a primeira versão, o jogo deve ter:
 ## 14. 🖼️ Storyboard
 
 * As imagens do Storyboard estão anexadas denro do repositório
+
+## 15. Cronograma das próximas seis semanas
+
+A ideia é ir evoluindo o jogo gradualmente, adicionando funcionalidades novas e corrigindo bugs conforme o projeto for andando.
+
+# Semana 1 — Física do jogo
+
+Nessa primeira semana o foco vai ser fazer a base do jogo funcionar direito. Melhorar:
+
+* Movimento do player
+* Pulo
+* Gravidade
+* Limites da tela
+* Bola com física
+* Colisão da bola com parede/chão/teto
+* IA simples seguindo a bola
+  
+# Semana 2 — Colisões
+
+Agora o foco vai ser melhorar a gameplay. Planejamos melhorar:
+
+* Colisão do player com a bola
+* Bola reagindo ao impacto
+* IA batendo na bola
+* Melhorar o quique da bola
+* Corrigir bugs de colisão
+
+# Semana 3 — Sistema de gol
+
+Essa semana vai ser mais focada nas mecanicas principais do futebol. Devemos aprimorar/adcionar:
+
+* Criar as traves
+* Detectar quando for gol
+* Reiniciar bola
+* Reiniciar jogadores
+* Fazer o placar
+
+# Semana 4 — Interface
+
+Aqui a ideia é deixar o jogo mais organizado visualmente. Fazer:
+
+* Menu inicial
+* Botão de jogar
+* Mostrar tempo da partida
+* Melhorar visual do placar
+
+# Semana 5 — Melhorias visuais
+
+Semana mais focada em aparência e detalhes.
+
+* Melhorar sprites
+* Melhorar o campo
+* Adicionar sons simples
+* Pequenas animações
+
+# Semana 6 — Ajustes finais e organização
+
+Na ultima semana a ideia vai ser mais corrigir e melhorar coisas que ainda estiverem incompletas ou com bug.
+
+* Corrigir bugs restantes
+* Melhorar algumas partes da gameplay
+* Organizar melhor os arquivos
+* Melhorar partes do código
+* Atualizar GitHub
