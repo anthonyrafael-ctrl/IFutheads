@@ -74,4 +74,14 @@ class Game:
             else:
                 self.ball.vel_x = -7
 
-            self.ball.vel_y = -5
+            self.ball.vel_y = -5 
+            
+        if self.player.rect.colliderect(self.enemy.rect):
+            
+            if self.player.rect.centerx < self.enemy.rect.centerx:
+                self.player.rect.x -= 5
+                self.enemy.rect.x += 5
+            
+            else:
+                self.player.rect.x += 5
+                self.enemy.rect.x -= 5
