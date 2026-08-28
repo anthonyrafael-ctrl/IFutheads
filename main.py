@@ -4,6 +4,10 @@ from menu import Menu
 from settings import *
 
 pygame.init()
+pygame.mixer.init()
+
+pygame.mixer.music.load("asserts/music/fell.mp3")
+pygame.mixer.music.set_volume(0.9)
 
 screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
 pygame.display.set_caption("IFutHeads")
@@ -12,6 +16,7 @@ menu = Menu()
 game = Game()
 
 estado = "menu"
+pygame.mixer.music.play(-1)
 
 running = True
 
@@ -23,11 +28,15 @@ while running:
             running = False
 
         if estado == "menu":
+            
 
             resultado = menu.handle_events(event)
 
             if resultado == "jogar":
                 estado = "jogo"
+                pygame.mixer.music.stop()
+                pygame.mixer.music.load("asserts/music/torcida.mp3")
+                pygame.mixer.music.play(-1)
 
             elif resultado == "creditos":
                 estado = "creditos"
