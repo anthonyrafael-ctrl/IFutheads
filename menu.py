@@ -1,5 +1,6 @@
 import pygame
 import sys
+import settings
 
 class Menu:
 
@@ -12,39 +13,22 @@ class Menu:
         self.botao_creditos = pygame.Rect(400, 340, 200, 60)
         self.botao_sair = pygame.Rect(400, 430, 200, 60)
 
+        self.fundo_menu = pygame.image.load("asserts/imagens/image.png").convert()
+        self.fundo_menu = pygame.transform.scale(self.fundo_menu,(settings.SCREEN_W, settings.SCREEN_H))
+
     def draw(self, screen):
 
-        screen.fill((30, 120, 30))
-
-        titulo = self.fonte_titulo.render(
-            "IFutHeads",
-            True,
-            (255,255,255)
-        )
-
-        screen.blit(titulo, (320,100))
+        screen.blit(self.fundo_menu, (0, 0))
 
         pygame.draw.rect(screen, (255,255,255), self.botao_jogar)
         pygame.draw.rect(screen, (255,255,255), self.botao_creditos)
         pygame.draw.rect(screen, (255,255,255), self.botao_sair)
 
-        texto_jogar = self.fonte_botao.render(
-            "JOGAR",
-            True,
-            (0,0,0)
-        )
+        texto_jogar = self.fonte_botao.render("JOGAR",True,(0,0,0))
 
-        texto_creditos = self.fonte_botao.render(
-            "CRÉDITOS",
-            True,
-            (0,0,0)
-        )
+        texto_creditos = self.fonte_botao.render("CRÉDITOS",True,(0,0,0))
 
-        texto_sair = self.fonte_botao.render(
-            "SAIR",
-            True,
-            (0,0,0)
-        )
+        texto_sair = self.fonte_botao.render("SAIR",True,(0,0,0))
 
         screen.blit(texto_jogar, (445,265))
         screen.blit(texto_creditos, (415,355))
