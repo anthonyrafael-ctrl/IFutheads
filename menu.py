@@ -1,6 +1,9 @@
 import pygame
 import sys
 
+tela = pygame.display.set_mode((1600, 900))
+fundo = pygame.image.load("menu.png")
+fundo = pygame.transform.scale(fundo, (1600, 900))
 class Menu:
 
     def __init__(self):
