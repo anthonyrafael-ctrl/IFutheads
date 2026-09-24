@@ -6,6 +6,7 @@ class Player:
     def __init__(self,x,y):
         self.rect = pygame.Rect(x,y,70,70)
         self.vel_y = 0
+        self.pulo_pressionado = False
         self.on_ground = False
         self.image = pygame.image.load("asserts/imagens/lionel_rollim.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (70,70))
@@ -24,11 +25,16 @@ class Player:
             self.rect.x = SCREEN_W - self.rect.width
 
     def pular(self,keys):
-        if keys[pygame.K_w] and self.on_ground:
-            self.vel_y = PLAYER_JUMP
+        if keys[pygame.K_w]:
+            if self.on_ground and not self.pulo_pressionado:
+                self.vel_y = PLAYER_JUMP
+                self.on_ground = False
 
-        if self.rect.y > 600:
-            self.rect.y = 600
+            self.pulo_pressionado = True
+
+        else:
+            self.pulo_pressionado = False
+            
 
         
     def apply_gravity(self):
@@ -37,6 +43,7 @@ class Player:
 
         if self.rect.y >= SCREEN_H - 70:
             self.rect.y = SCREEN_H - 70
+            self.vel_y = 0
             self.on_ground = True
         
         if self.rect.y <= 0:
