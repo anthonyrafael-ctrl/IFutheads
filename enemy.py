@@ -8,16 +8,27 @@ class Enemy:
         self.vel_y = 0
 
     def seguir_bola(self,ball):
-        if ball.rect.x < self.rect.x:
-            self.rect.x -= PLAYER_SPEED
-        elif ball.rect.x > self.rect.x:
-            self.rect.x += PLAYER_SPEED
+        if ball.rect.centerx < SCREEN_W // 2:
 
-        if self.rect.x < 0:
-            self.rect.x = 0
-        
-        if self.rect.x > SCREEN_W - self.rect.width:
-            self.rect.x = SCREEN_W - self.rect.width
+            if self.rect.centerx < 800:
+                self.rect.x += PLAYER_SPEED
+
+            elif self.rect.centerx > 800:
+                self.rect.x -= PLAYER_SPEED
+
+        else:
+
+            if ball.rect.centerx < self.rect.centerx:
+                self.rect.x -= PLAYER_SPEED
+
+            elif ball.rect.centerx < self.rect.centerx:
+                self.rect.x += PLAYER_SPEED
+
+        if self.rect.left < SCREEN_W // 2:
+            self.rect.left = SCREEN_W // 2
+
+        if self.rect.right > SCREEN_W:
+            self.rect.right = SCREEN_W
     
     def apply_gravity(self):
         self.vel_y += GRAVITY

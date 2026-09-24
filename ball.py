@@ -19,9 +19,11 @@ class Bola:
 
         if self.rect.x < 0:
             self.rect.x = 0
-        
+            self.vel_x = abs(self.vel_x)
+
         if self.rect.x > SCREEN_W - self.rect.width:
             self.rect.x = SCREEN_W - self.rect.width
+            self.vel_x = -abs(self.vel_x)
 
         if self.rect.y >= SCREEN_H - 30:
             self.rect.y = SCREEN_H -30

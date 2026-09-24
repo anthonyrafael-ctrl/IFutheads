@@ -7,7 +7,7 @@ pygame.init()
 pygame.mixer.init()
 
 pygame.mixer.music.load("asserts/music/fell.mp3")
-pygame.mixer.music.set_volume(0.9)
+pygame.mixer.music.set_volume(0.1)
 
 screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
 pygame.display.set_caption("IFutHeads")
@@ -41,6 +41,16 @@ while running:
             elif resultado == "creditos":
                 estado = "creditos"
 
+            elif resultado == "voltar":
+                estado = "menu"
+
+        elif estado == "creditos":
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                
+                if menu.botao_voltar.collidepoint(mouse_pos):
+                    estado = "menu"
+
     if estado == "menu":
         menu.draw(screen)
 
@@ -48,18 +58,7 @@ while running:
         game.events(screen)
 
     elif estado == "creditos":
-
-        screen.fill((0,0,0))
-
-        fonte = pygame.font.Font(None, 50)
-
-        texto = fonte.render(
-            "Desenvolvido por Anthony e Rafael Araújo.",
-            True,
-            (255,255,255)
-        )
-
-        screen.blit(texto, (180,280))
+        menu.creditos(screen)
 
     pygame.display.flip()
 
