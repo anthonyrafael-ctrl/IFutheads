@@ -10,6 +10,8 @@ class Game:
         self.player = Player(150,SCREEN_H - 50)
         self.enemy = Enemy(800, SCREEN_H - 50)
         self.ball = Bola(SCREEN_W // 2, SCREEN_H // 2)
+        self.time = TIME_MATCH
+        self.time_last = pygame.time.get_ticks()
         self.background = pygame.image.load("asserts/imagens/fundo.jpeg")
         self.background = pygame.transform.scale(self.background, (SCREEN_W, SCREEN_H))
     
@@ -20,6 +22,27 @@ class Game:
 
         while running:
             clock.tick(FPS)
+
+            tempo_atual = pygame.time.get_ticks()
+
+            if tempo_atual - self.time_last >= 1000:
+                if self.time > 0:
+                    self.time -= 1
+
+                self.time_last = tempo_atual
+
+            if self.time <= 0:
+                return "menu"
+
+
+
+            tempo_atual = pygame.time.get_ticks()
+
+            if tempo_atual - self.time_last >= 1000:
+                if self.time > 0:
+                    self.time -= 1
+
+                self.time_last = tempo_atual
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -43,6 +66,10 @@ class Game:
             self.player.desenhar(screen)
             self.enemy.desenhar(screen)
             self.ball.desenhar(screen)
+
+            fonte_tempo = pygame.font.Font(None, 50)
+            text_tempo = fonte_tempo.render(str(self.time), True, WHITE)
+            screen.blit(text_tempo, (SCREEN_W // 2 - 15, 20))
 
 
             pygame.display.update()

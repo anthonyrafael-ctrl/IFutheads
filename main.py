@@ -33,6 +33,7 @@ while running:
             resultado = menu.handle_events(event)
 
             if resultado == "jogar":
+                game = Game()
                 estado = "jogo"
                 pygame.mixer.music.stop()
                 pygame.mixer.music.load("asserts/music/torcida.mp3")
@@ -55,7 +56,14 @@ while running:
         menu.draw(screen)
 
     elif estado == "jogo":
-        game.events(screen)
+        resultado = game.events(screen)
+
+        if resultado == "menu":
+            estado = "menu"
+
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load("asserts/music/fell.mp3")
+            pygame.mixer.music.play(-1)
 
     elif estado == "creditos":
         menu.creditos(screen)
