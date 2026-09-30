@@ -10,6 +10,10 @@ class Game:
         self.player = Player(150,SCREEN_H - 50)
         self.enemy = Enemy(800, SCREEN_H - 50)
         self.ball = Bola(SCREEN_W // 2, SCREEN_H // 2)
+        self.placar_player = 0
+        self.placar_cpu = 0
+        self.gol_esquerdo = pygame.Rect(0,400,100,200)
+        self.gol_direito = pygame.Rect(920,430,80,100)
         self.time = TIME_MATCH
         self.time_last = pygame.time.get_ticks()
         self.background = pygame.image.load("asserts/imagens/fundo.jpeg")
@@ -61,6 +65,7 @@ class Game:
             self.ball.apply_gravity()
             self.ball.mover()
             self.colisao(keys)
+            self.var()
 
             screen.blit(self.background, (0,0))
             self.player.desenhar(screen)
@@ -70,6 +75,11 @@ class Game:
             fonte_tempo = pygame.font.Font(None, 50)
             text_tempo = fonte_tempo.render(str(self.time), True, WHITE)
             screen.blit(text_tempo, (SCREEN_W // 2 - 15, 20))
+
+            fonte_placar = pygame.font.Font(None, 50)
+            texto_placar = fonte_placar.render(f"PLAYER {self.placar_player} X {self.placar_cpu} CPU", True, WHITE)
+            screen.blit(texto_placar, (SCREEN_W // 2 - 150, 70))
+
 
 
             pygame.display.update()
@@ -118,3 +128,26 @@ class Game:
             else:
                 self.player.rect.x += 5
                 self.enemy.rect.x -= 5
+
+
+    def var(self):
+
+        if self.ball.rect.colliderect(self.gol_esquerdo):
+            print("GOL da CPU")
+
+            self.placar_cpu += 1
+
+            self.ball.rect.x = SCREEN_W // 2
+            self.ball.rect.y = SCREEN_H // 2
+            self.ball.vel_x = 0
+            self.ball.vel_y = 0
+
+        if self.ball.rect.colliderect(self.gol_direito):
+            print("GOLLLLL DO JOGADORR!")
+
+            self.placar_player += 1
+
+            self.ball.rect.x = SCREEN_W // 2
+            self.ball.rect.y = SCREEN_H // 2
+            self.ball.vel_x = 0
+            self.ball.vel_y = 0
