@@ -6,8 +6,9 @@ from player import Player
 
 #modifiquei classe game. 
 class Game:
-    def __init__(self):
-        self.player = Player(150,SCREEN_H - 50)
+    def __init__(self, cor_personagem=None):
+        self.cor_personagem = cor_personagem
+        self.player = Player(150, SCREEN_H - 50, self.cor_personagem)
         self.enemy = Enemy(800, SCREEN_H - 50)
         self.ball = Bola(SCREEN_W // 2, SCREEN_H // 2)
         self.placar_player = 0
@@ -195,7 +196,7 @@ class Game:
 
     
     def reiniciar_partida(self):
-        self.player = Player(150, SCREEN_H - 70)
+        self.player = Player(150, SCREEN_H - 70, self.cor_personagem)
         self.enemy = Enemy(800, SCREEN_H - 70)
 
         self.ball = Bola(SCREEN_W // 2, SCREEN_H // 2)

@@ -27,38 +27,53 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        if estado == "menu":
-            
+        elif estado == "menu":
 
             resultado = menu.handle_events(event)
 
             if resultado == "jogar":
-                game = Game()
-                estado = "jogo"
-                pygame.mixer.music.stop()
-                pygame.mixer.music.load("asserts/music/torcida.mp3")
-                pygame.mixer.music.play(-1)
+                estado = "personagens"
 
             elif resultado == "creditos":
                 estado = "creditos"
 
-            elif resultado == "voltar":
-                estado = "menu"
+        elif estado == "personagens":
+
+            resultado = menu.selecionar_personagem(event)
+
+            if resultado == "continuar":
+
+                cor = menu.cores_personagens[menu.personagem_selecionado]
+
+                game = Game(cor)
+                estado = "jogo"
+
+                pygame.mixer.music.stop()
+                pygame.mixer.music.load("asserts/music/torcida.mp3")
+                pygame.mixer.music.play(-1)
 
         elif estado == "creditos":
+
             if event.type == pygame.MOUSEBUTTONDOWN:
+
                 mouse_pos = pygame.mouse.get_pos()
-                
+
                 if menu.botao_voltar.collidepoint(mouse_pos):
                     estado = "menu"
+
 
     if estado == "menu":
         menu.draw(screen)
 
+    elif estado == "personagens":
+        menu.personagem_screen(screen)
+
     elif estado == "jogo":
+
         resultado = game.events(screen)
 
         if resultado == "menu":
+
             estado = "menu"
 
             pygame.mixer.music.stop()

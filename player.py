@@ -3,14 +3,19 @@ from settings import *
 
 #classe player, tem que rever como vai colocar os dois personagens e escolher só um. Tem que adicionar colisão
 class Player:
-    def __init__(self,x,y):
+    def __init__(self,x,y, cor=None):
         self.rect = pygame.Rect(x,y,70,70)
         self.vel_y = 0
         self.pulo_pressionado = False
         self.on_ground = False
-        self.image = pygame.image.load("asserts/imagens/lionel_rollim.png").convert_alpha()
-        self.image = pygame.transform.scale(self.image, (70,70))
-        self.rect = self.image.get_rect(topleft=(x,y))
+        if cor is None:
+            self.image = pygame.image.load("asserts/imagens/lionel_rollim.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (70, 70))
+        else:
+            self.image = pygame.Surface((70, 70))
+            self.image.fill(cor)
+        
+        self.rect = self.image.get_rect(topleft=(x, y))
     
     def mover(self,keys):
         if keys[pygame.K_a]:
