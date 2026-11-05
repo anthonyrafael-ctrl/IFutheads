@@ -3,6 +3,7 @@ from settings import *
 from enemy import Enemy
 from ball import Bola
 from player import Player
+from enemy_ai import EnemyAI
 
 #modifiquei classe game. 
 class Game:
@@ -10,6 +11,7 @@ class Game:
         self.cor_personagem = cor_personagem
         self.player = Player(150, SCREEN_H - 50, self.cor_personagem)
         self.enemy = Enemy(800, SCREEN_H - 50)
+        self.enemy_ai = EnemyAI()
         self.ball = Bola(SCREEN_W // 2, SCREEN_H // 2)
         self.placar_player = 0
         self.placar_cpu = 0
@@ -71,7 +73,12 @@ class Game:
             self.player.pular(keys)
             self.player.apply_gravity()
 
-            self.enemy.seguir_bola(self.ball)
+            estado = self.enemy_ai.observar_jogo(
+                self.enemy, self.player, self.ball
+            )
+            acao = self.enemy_ai.escolher_acao(estado)
+            self.enemy_ai.escolher_acao(estado)
+            self.enemy.executar_acao(acao)
             self.enemy.apply_gravity()
 
             self.ball.apply_gravity()
@@ -258,6 +265,13 @@ class Game:
 
             self.placar_cpu += 1
 
+            estado = self.enemy_ai.observar_jogo(self.enemy, self.player, self.ball)
+
+            if self.enemy_ai.estado_anterior is not None:
+                self.enemy_ia.aprender(self.enemy_ia.estado_anterior, self.enemy_ia.acao_anterior, 100, estado)
+
+            self.enemy_ai.salvar_memoria()
+
             # Volta o jogador para a posição inicial
             self.player.rect.x = 150
             self.player.rect.y = SCREEN_H - 70
@@ -278,6 +292,13 @@ class Game:
             print("GOL DO JOGADOR!")
 
             self.placar_player += 1
+
+            estado = self.enemy_ai.observar_jogo(self.enemy, self.player, self.ball)
+
+            if self.enemy_ai.estado_anterior is not None:
+                self.enemy_ia.aprender(self.enemy_ia.estado_anterior, self.enemy_ia.acao_anterior, -100, estado)
+
+            self.enemy_ai.salvar_memoria()
 
             # Volta o jogador para a posição inicial
             self.player.rect.x = 150

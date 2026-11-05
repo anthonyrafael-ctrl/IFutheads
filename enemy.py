@@ -6,6 +6,7 @@ class Enemy:
     def __init__(self,x,y):
         self.rect = pygame.Rect(x,y,70,70)
         self.vel_y = 0
+        self.on_ground = True
 
     def seguir_bola(self,ball):
         if ball.rect.centerx < SCREEN_W // 2:
@@ -29,6 +30,25 @@ class Enemy:
 
         if self.rect.right > SCREEN_W:
             self.rect.right = SCREEN_W
+
+    def executar_acao(self, acao):
+        if acao == "esquerda":
+            self.rect.x -= PLAYER_SPEED
+        elif acao == "direita":
+            self.rect.x += PLAYER_SPEED
+        elif acao == "pular":
+            if self.on_ground:
+                self.vel_y = -15
+                self.on_ground = False
+
+        elif acao == "ficar":
+            pass
+
+        if self.rect.left < SCREEN_W // 2:
+            self.rect.left = SCREEN_W // 2
+
+        if self.rect.right > SCREEN_W:
+            self.rect.right = SCREEN_W
     
     def apply_gravity(self):
         self.vel_y += GRAVITY
@@ -36,6 +56,10 @@ class Enemy:
 
         if self.rect.y >= SCREEN_H - 70:
             self.rect.y = SCREEN_H - 70
+            self.vel_y = 0
+            self.on_ground = True
+        else: 
+            self.on_ground = False
 
     def desenhar(self,screen):
         pygame.draw.rect(screen, (255,0,0), self.rect)
