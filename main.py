@@ -43,9 +43,9 @@ while running:
 
             if resultado == "continuar":
 
-                cor = menu.cores_personagens[menu.personagem_selecionado]
+                personagem = menu.personagens[menu.personagem_selecionado]["chave"]
 
-                game = Game(cor)
+                game = Game(personagem)
                 estado = "jogo"
 
                 pygame.mixer.music.stop()

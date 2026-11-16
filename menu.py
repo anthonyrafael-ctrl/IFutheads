@@ -1,6 +1,7 @@
 import pygame
 import sys
 import settings
+from sprites import carregar_sprite
 
 tela = pygame.display.set_mode((1600, 900))
 fundo = pygame.image.load("menu.png")
@@ -18,21 +19,20 @@ class Menu:
         self.botao_sair = pygame.Rect(400, 430, 200, 60)
         self.botao_voltar = pygame.Rect(400, 500, 200, 60)
 
-        self.personagens = ["JOGADOR 1", "JOGADOR 2", "JOGADOR 3", "JOGADOR 4"]
-        self.cores_personagens = [
-            (0, 100, 255),    # azulzinho 
-            (255, 0, 0),      # vermelho
-            (255, 220, 0),    # Amarelo
-            (0, 200, 100)     # verde
-]
+
+        self.personagens = [
+            {"chave": "lionel", "nome": "LIONEL ROLLIM", "sprite": "sprites/lionel.png"},
+            {"chave": "cristiano", "nome": "CRISTIANO ROMERITO", "sprite": "sprites/cristiano.png"},
+        ]
         self.personagem_selecionado = None
         self.botoes_personagens = [
-            pygame.Rect(70, 280, 190, 80),
-            pygame.Rect(300, 280, 190, 80),
-            pygame.Rect(530, 280, 190, 80),
-            pygame.Rect(760, 280, 190, 80)
-]
-        self.botao_continuar = pygame.Rect(650, 450, 200, 60)
+            pygame.Rect(220, 300, 260, 200),
+            pygame.Rect(520, 300, 260, 200),
+        ]
+        self.botao_continuar = pygame.Rect(400, 520, 200, 60)
+
+        self.previas = [carregar_sprite(p["sprite"], (130, 130)) for p in self.personagens]
+        self.nomes = [self._texto_ajustado(p["nome"], 230) for p in self.personagens]
         self.fundo_menu = pygame.image.load("asserts/imagens/image.png").convert()
         self.fundo_menu = pygame.transform.scale(self.fundo_menu,(settings.SCREEN_W, settings.SCREEN_H))
 
@@ -61,30 +61,42 @@ class Menu:
         titulo = self.fonte_selecao.render(
             "ESCOLHA SEU PERSONAGEM", True, (255, 255, 255))
 
-        screen.blit(titulo, titulo.get_rect(center=(settings.SCREEN_W // 2, 160)))
+        screen.blit(titulo, titulo.get_rect(center=(settings.SCREEN_W // 2, 270)))
 
         for i, botao in enumerate(self.botoes_personagens):
 
-            cor = (255, 215, 0)
-
             if self.personagem_selecionado == i:
-                cor = (255, 215, 0)
+                cor_fundo, cor_borda, espessura = (255, 215, 0), (0, 110, 40), 6
+            else:
+                cor_fundo, cor_borda, espessura = (245, 245, 245), (60, 60, 60), 2
 
-            pygame.draw.rect(screen, cor, botao)
-            
-            pygame.draw.rect( screen, self.cores_personagens[i], (botao.x + 10, botao.y + 15, 50, 50))
+            pygame.draw.rect(screen, cor_fundo, botao, border_radius=12)
+            pygame.draw.rect(screen, cor_borda, botao, espessura, border_radius=12)
 
-            texto = self.fonte_botao.render(
-                self.personagens[i], True, (0,0,0)
-            )
+            previa = self.previas[i]
+            screen.blit(previa, previa.get_rect(midbottom=(botao.centerx, botao.y + 150)))
 
-            screen.blit(texto, texto.get_rect(center=botao.center))
-            
-            
-        pygame.draw.rect(screen, (255, 255, 255), self.botao_continuar)
+            nome = self.nomes[i]
+            screen.blit(nome, nome.get_rect(center=(botao.centerx, botao.bottom - 28)))
+
+        # o butotão fica cinza até o jogador escolher alguém
+        cor_continuar = (255, 255, 255) if self.personagem_selecionado is not None else (160, 160, 160)
+        pygame.draw.rect(screen, cor_continuar, self.botao_continuar)
         texto_continuar = self.fonte_botao.render("CONTINUAR", True, (0, 0, 0))
         
         screen.blit(texto_continuar, texto_continuar.get_rect(center=self.botao_continuar.center))
+
+    def _texto_ajustado(self, texto, largura_max):
+        # renderiza o textinhoo na maior fonte que ainda cabe em largura_max
+        tamanho = 36
+
+        while True:
+            imagem = pygame.font.Font(None, tamanho).render(texto, True, (0, 0, 0))
+
+            if imagem.get_width() <= largura_max or tamanho <= 14:
+                return imagem
+
+            tamanho -= 2
 
     def selecionar_personagem(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
